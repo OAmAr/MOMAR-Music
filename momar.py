@@ -8,6 +8,7 @@ except ImportError:
     from tkinter import *
 
 momarInstance = Tk()
+momarInstance.title("MOMAR Music")
 momarInstance.geometry("200x75")
 
 #Frame is where things go
