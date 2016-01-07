@@ -1,40 +1,33 @@
-#!/usr/bin/python
+import pyglet
+from pyglet.window import key
 
-try:
-    # for Python2
-    from Tkinter import *   ## notice capitalized T in Tkinter 
-except ImportError:
-    # for Python3
-    from tkinter import *
+window = pyglet.window.Window()
+music = pyglet.resource.media('testSong.mp3')
+player = pyglet.media.Player()
 
-import winsound
-import tkSnack
+player.queue(music)
 
-#AUDIO PLAYER
-def playPause():
-    song = open("testSong.mp3").read()
-    winsound.PlaySound(song, winsound.SND_MEMORY)
+def toggleState():
+    if player.playing:
+        player.pause()
+    else:
+        player.play()
+        
 
-momarInstance = Tk()
-momarInstance.title("MOMAR Music")
-momarInstance.geometry("200x75")
+label = pyglet.text.Label('MOMAR Music',
+                          font_name='Times New Roman',
+                          font_size=36,
+                          x=window.width//2, y=window.height//2,
+                          anchor_x='center', anchor_y='center')
 
-#Frame is where things go
-app = Frame(momarInstance)
-#put frame on window
-app.grid()
-#Back button
-backB= Button(app, text = "Back")
-backB.grid()
-#Play button
-playB= Button(app, text = "Play", command = playPause)
-playB.grid()
-#Skip Button
-skipB=Button(app, text = "Skip")
-skipB.grid()
+@window.event
+def on_draw():
+    window.clear()
+    label.draw()
 
+@window.event
+def on_key_press(symbol,modifiers):
+    if symbol == key.SPACE:
+        toggleState()
 
-
-
-momarInstance.mainloop()
-
+pyglet.app.run()
