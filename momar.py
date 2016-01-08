@@ -112,7 +112,7 @@ if __name__ == "__main__":
     root.title("MOMAR")
     root.geometry("200x103")
 
-    app = Player(root)
+    app = PlayWindow(root)
     app.updateTime()
 
     root.mainloop()
