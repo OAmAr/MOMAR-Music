@@ -15,10 +15,8 @@ player.queue(music)
 def toggleState():
     if player.playing:
         player.pause()
-        playB= Button(app, text = "Play", command = toggleState)
     else:
         player.play()
-        playB= Button(app, text = "Pause", command = toggleState)
 
 #Window Things
 try:
