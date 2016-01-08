@@ -11,7 +11,7 @@ music = pyglet.resource.media('testSong.mp3')
 player = pyglet.media.Player()
 
 player.queue(music)
-
+import tkinter.messagebox
 def toggleState():
     if player.playing:
         player.pause()
@@ -19,10 +19,6 @@ def toggleState():
         player.play()
 
 #Window Things
-try:
-    from tkinter import *
-except ImportError:
-    from Tkinter import *
 
 class Player (Frame):
     """Main Window"""
@@ -42,6 +38,10 @@ class Player (Frame):
         self.backB.grid()
         self.playB.grid()
         self.skipB.grid()
+
+        """Volume"""
+        vol = Scale(self, from_=0, to=200, orient=VERTICAL)
+        vol.grid()
         
     def back(self):
         self.placeholder("gone back.")
