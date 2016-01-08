@@ -68,11 +68,7 @@ class PlayWindow (Frame):
         self.vol.grid(row = 0, column = 1, rowspan = 3, sticky = W)
 
         """Time Scrub"""
-<<<<<<< HEAD
-        self.time = Scale(self, from_= 0, to = music.duration,
-=======
         self.time = Scale(self, to= music.duration, from_ = 0,
->>>>>>> origin/master
                           orient = HORIZONTAL , command = self.timechanged)
         #when song ends this needs to change, use config?
 
@@ -94,7 +90,6 @@ class PlayWindow (Frame):
         player.volume= float( self.vol.get())/100
 
     def timechanged(self, event):
-<<<<<<< HEAD
         if abs(self.time.get() - player.time) > 1:
             player.seek(self.time.get() )
         
@@ -102,10 +97,7 @@ class PlayWindow (Frame):
         self.time.set(player.time)
         self.after(1000,self.updateTime)
     
-=======
-        player.seek(self.time.get() )
-            
->>>>>>> origin/master
+
     def placeholder(self, text):
         messagebox.showerror(title = "no code",
                            message = "Oops! There's no code here! "
@@ -119,14 +111,9 @@ if __name__ == "__main__":
     root = Tk() 
     root.title("MOMAR")
     root.geometry("200x103")
-    
-<<<<<<< HEAD
-    
+
     app = Player(root)
     app.updateTime()
-=======
-    app = PlayWindow(root)
-    playwait()
->>>>>>> origin/master
+
     root.mainloop()
     
