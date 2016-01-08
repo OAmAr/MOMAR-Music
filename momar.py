@@ -90,7 +90,7 @@ class PlayWindow (Frame):
         
     def updateTime(self):
         self.time.set(player.time)
-        self.after(1000,self.updateTime)
+        self.after(250,self.updateTime)
     
 
     def placeholder(self, text):
