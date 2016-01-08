@@ -41,11 +41,14 @@ class PlayWindow (Frame):
         self.backB = Button(self, text = "Back", command = self.back)
         self.playB = Button(self, text = "Play", command =  self.play)
         self.skipB =Button(self, text = "Skip", command =self.skip)
-
+        self.timeLabel = Label(self, text= "00:00")
+        self.songLabel = Label(self, text= "Song Title \n Artist")
+        
         self.backB.grid(row = 0)
         self.playB.grid(row = 1)
         self.skipB.grid(row = 2)
-
+        self.timeLabel.grid(row= 2 , column=2)
+        self.songLabel.grid(row= 0 , column=2)
 
         """Volume"""
         self.vol = Scale(self, from_=100, to=0, orient=VERTICAL,
@@ -55,7 +58,7 @@ class PlayWindow (Frame):
 
         """Time Scrub"""
         self.time = Scale(self, to= music.duration, from_ = 0,
-                          orient = HORIZONTAL , command = self.timechanged)
+                          orient = HORIZONTAL , command = self.timechanged, showvalue = False)
         #when song ends this needs to change, use config?
 
         self.time.grid(row = 0, column = 2, rowspan = 3, sticky = W)
@@ -76,8 +79,14 @@ class PlayWindow (Frame):
         player.volume= float( self.vol.get())/100
 
     def timechanged(self, event):
-        if abs(self.time.get() - player.time) > 1:
-            player.seek(self.time.get() )
+        value = int(event)
+        minutes = value/60
+        seconds = value%60
+        timeAsText = "%2.2d:%2.2d" % (minutes, seconds)
+        self.timeLabel.configure(text=timeAsText)
+        
+        if abs(value - player.time) > 1:
+            player.seek(value)
         
     def updateTime(self):
         self.time.set(player.time)
