@@ -35,14 +35,15 @@ class Player (Frame):
         self.playB = Button(self, text = "Play", command =  self.play)
         self.skipB =Button(self, text = "Skip", command =self.skip)
 
-        self.backB.grid()
-        self.playB.grid()
-        self.skipB.grid()
+        self.backB.grid(row = 0)
+        self.playB.grid(row = 1)
+        self.skipB.grid(row = 2)
 
         """Volume"""
         self.vol = Scale(self, from_=100, to=0, orient=VERTICAL,
                     command = self.volchanged)
-        self.vol.grid()
+        self.vol.set(50)
+        self.vol.grid(row = 0, column = 1, rowspan = 3, sticky = W)
         
     def back(self):
         self.placeholder("gone back.")
@@ -57,7 +58,7 @@ class Player (Frame):
         return
 
     def volchanged(self, event):
-        player.volume= float( self.vol.get())
+        player.volume= float( self.vol.get()) / 100
         print (player.volume)
         
     
@@ -72,7 +73,7 @@ class Player (Frame):
 if __name__ == "__main__":
     root = Tk() 
     root.title("MOMAR")
-    root.geometry("200x80")
+    root.geometry("200x103")
     
     app = Player(root)
 
