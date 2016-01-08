@@ -56,9 +56,10 @@ class Player (Frame):
         self.placeholder("skipped.")
         return
 
-    def volchanged(self):
-        #player.volume= float( self.vol.get())
-        return
+    def volchanged(self, event):
+        player.volume= float( self.vol.get())
+        print (player.volume)
+        
     
     def placeholder(self, text):
         messagebox.showerror(title = "no code",
