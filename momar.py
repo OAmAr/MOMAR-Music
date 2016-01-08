@@ -57,7 +57,7 @@ class Player (Frame):
         return
 
     def volchanged(self, event):
-        player.volume= float( self.vol.get())
+        player.volume= float( self.vol.get())/100
         print (player.volume)
         
     
