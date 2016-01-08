@@ -39,6 +39,7 @@ class Player (Frame):
         self.playB.grid(row = 1)
         self.skipB.grid(row = 2)
 
+
         """Volume"""
         self.vol = Scale(self, from_=100, to=0, orient=VERTICAL,
                     command = self.volchanged)
@@ -46,7 +47,7 @@ class Player (Frame):
         self.vol.grid(row = 0, column = 1, rowspan = 3, sticky = W)
 
         """Time Scrub"""
-        self.time = Scale(self, from_= music.duration, to = 0,
+        self.time = Scale(self, from_= 0, to = music.duration,
                           orient = HORIZONTAL , command = self.timechanged)
         #when song ends this needs to change, use config?
 
@@ -66,11 +67,14 @@ class Player (Frame):
 
     def volchanged(self, event):
         player.volume= float( self.vol.get())/100
-        print (player.volume)
 
     def timechanged(self, event):
-        player.seek(self.time.get() )
+        if abs(self.time.get() - player.time) > 1:
+            player.seek(self.time.get() )
         
+    def updateTime(self):
+        self.time.set(player.time)
+        self.after(1000,self.updateTime)
     
     def placeholder(self, text):
         messagebox.showerror(title = "no code",
@@ -80,11 +84,13 @@ class Player (Frame):
 
 
 
+
 if __name__ == "__main__":
     root = Tk() 
     root.title("MOMAR")
     root.geometry("200x103")
     
+    
     app = Player(root)
-
+    app.updateTime()
     root.mainloop()
