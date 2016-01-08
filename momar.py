@@ -7,7 +7,6 @@ except ImportError:
     from tkinter import *
     
 import tkinter.messagebox
-import time 
 
 #Music Player Things
 music = pyglet.resource.media('testSong.mp3')
@@ -21,21 +20,6 @@ def toggleState():
     else:
         player.play()
         return
-
-def playcount():
-    while player.playing:
-        print('playing')
-        app.time.set(player.time)
-        time.sleep(1.0)
-        if player.time == music.duration:
-            app.time.set(0)
-            #and move to next song
-def playwait():
-    while not player.playing:
-        print(
-            'waiting')
-    playcount()
-            
         
             
 
