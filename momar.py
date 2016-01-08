@@ -1,7 +1,12 @@
 import pyglet
-from pyglet.window import key
+try:
+    # for Python2
+    from Tkinter import *   ## notice capitalized T in Tkinter 
+except ImportError:
+    # for Python3
+    from tkinter import *
 
-window = pyglet.window.Window()
+#Music Player Things
 music = pyglet.resource.media('testSong.mp3')
 player = pyglet.media.Player()
 
@@ -12,22 +17,21 @@ def toggleState():
         player.pause()
     else:
         player.play()
-        
 
-label = pyglet.text.Label('MOMAR Music',
-                          font_name='Times New Roman',
-                          font_size=36,
-                          x=window.width//2, y=window.height//2,
-                          anchor_x='center', anchor_y='center')
+#Window Things
+momarInstance = Tk()
+momarInstance.geometry("200x75")
 
-@window.event
-def on_draw():
-    window.clear()
-    label.draw()
-
-@window.event
-def on_key_press(symbol,modifiers):
-    if symbol == key.SPACE:
-        toggleState()
-
-pyglet.app.run()
+#Frame is where things go
+app = Frame(momarInstance)
+#put frame on window
+app.grid()
+#Back button
+backB= Button(app, text = "Back")
+backB.grid()
+#Play button
+playB= Button(app, text = "Play", command = toggleState)
+playB.grid()
+#Skip Button
+skipB=Button(app, text = "Skip")
+skipB.grid()
