@@ -40,8 +40,9 @@ class Player (Frame):
         self.skipB.grid()
 
         """Volume"""
-        vol = Scale(self, from_=0, to=200, orient=VERTICAL)
-        vol.grid()
+        self.vol = Scale(self, from_=100, to=0, orient=VERTICAL,
+                    command = self.volchanged)
+        self.vol.grid()
         
     def back(self):
         self.placeholder("gone back.")
@@ -53,6 +54,10 @@ class Player (Frame):
     
     def skip(self):
         self.placeholder("skipped.")
+        return
+
+    def volchanged(self):
+        #player.volume= float( self.vol.get())
         return
     
     def placeholder(self, text):
