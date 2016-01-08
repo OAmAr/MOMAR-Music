@@ -17,8 +17,10 @@ player.queue(music)
 def toggleState():
     if player.playing:
         player.pause()
+        app.playB.config(text="Play")
     else:
         player.play()
+        app.playB.config(text="Pause")
         return
         
             
