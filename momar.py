@@ -44,6 +44,13 @@ class Player (Frame):
                     command = self.volchanged)
         self.vol.set(50)
         self.vol.grid(row = 0, column = 1, rowspan = 3, sticky = W)
+
+        """Time Scrub"""
+        self.time = Scale(self, from_= music.duration, to = 0,
+                          orient = HORIZONTAL , command = self.timechanged)
+        #when song ends this needs to change, use config?
+
+        self.time.grid(row = 0, column = 2, rowspan = 3, sticky = W)
         
     def back(self):
         self.placeholder("gone back.")
@@ -60,6 +67,9 @@ class Player (Frame):
     def volchanged(self, event):
         player.volume= float( self.vol.get())/100
         print (player.volume)
+
+    def timechanged(self, event):
+        player.seek(self.time.get() )
         
     
     def placeholder(self, text):
