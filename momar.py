@@ -38,17 +38,17 @@ class PlayWindow (Frame):
     def create_widgets(self):
         """Play, skip, back buttons"""
         #eventually change to images not text
-        self.backB = Button(self, text = "Back", command = self.back)
-        self.playB = Button(self, text = "Play", command =  self.play)
-        self.skipB =Button(self, text = "Skip", command =self.skip)
+        self.backB = Button(self, text = "Back", command = self.back, width = 5)
+        self.playB = Button(self, text = "Play", command =  self.play, width= 5)
+        self.skipB =Button(self, text = "Skip", command =self.skip, width= 5)
         self.timeLabel = Label(self, text= "00:00")
         self.songLabel = Label(self, text= "Song Title \n Artist")
         
-        self.backB.grid(row = 0)
-        self.playB.grid(row = 1)
-        self.skipB.grid(row = 2)
+        self.backB.grid(row = 0, sticky= NW)
+        self.playB.grid(row = 1, sticky= NW)
+        self.skipB.grid(row = 2, sticky= SW)
         self.timeLabel.grid(row= 2 , column=2)
-        self.songLabel.grid(row= 0 , column=2)
+        self.songLabel.grid(row= 0 , column=2, sticky= N)
 
         """Volume"""
         self.vol = Scale(self, from_=100, to=0, orient=VERTICAL,
@@ -61,9 +61,10 @@ class PlayWindow (Frame):
                           orient = HORIZONTAL , command = self.timechanged, showvalue = False)
         #when song ends this needs to change, use config?
 
-        self.time.grid(row = 0, column = 2, rowspan = 3, sticky = W)
+        self.time.grid(row = 1, column = 2, sticky = SW)
         
     def back(self):
+
         self.placeholder("gone back.")
         return
     
@@ -105,7 +106,7 @@ class PlayWindow (Frame):
 if __name__ == "__main__":
     root = Tk() 
     root.title("MOMAR")
-    root.geometry("200x103")
+    root.geometry("200x106")
 
     app = PlayWindow(root)
     app.updateTime()
