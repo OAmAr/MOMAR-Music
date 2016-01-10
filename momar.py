@@ -38,25 +38,32 @@ class PlayWindow (Frame):
     def create_widgets(self):
         """Play, skip, back buttons"""
         #eventually change to images not text
-        self.backB = Button(self, text = "Back", command = self.back, width = 5)
-        self.playB = Button(self, text = "Play", command =  self.play, width= 5)
-        self.skipB =Button(self, text = "Skip", command =self.skip, width= 5)
-        self.timeLabel = Label(self, text= "00:00")
-        self.songLabel = Label(self, text= "Song Title \n Artist")
+        self.backB = Button(self, text = "Back", command = self.back, width = 5,
+                            height = 1)
+        self.playB = Button(self, text = "Play", command =  self.play, width= 5,
+                            height = 1)
+        self.skipB =Button(self, text = "Skip", command =self.skip, width= 5,
+                           height = 1)
         
         self.backB.grid(row = 0, sticky= NW)
         self.playB.grid(row = 1, sticky= NW)
-        self.skipB.grid(row = 2, sticky= SW)
+        self.skipB.grid(row = 2, sticky= SW, pady= (5, 2))
+
+        """Labels"""
+        self.timeLabel = Label(self, text= "00:00")
+        self.songLabel = Label(self, text= "Song Title \n Artist")
+        
         self.timeLabel.grid(row= 2 , column=2)
         self.songLabel.grid(row= 0 , column=2, sticky= N)
 
         """Volume"""
         self.vol = Scale(self, from_=100, to=0, orient=VERTICAL,
-                    command = self.volchanged)
+                    command = self.volchanged, length = 105)
         self.vol.set(50)
-        self.vol.grid(row = 0, column = 1, rowspan = 3, sticky = W)
+        
+        self.vol.grid(row = 0, column = 1, rowspan = 3, sticky = NW)
 
-        """Time Scrub"""
+        """Time seeker"""
         self.time = Scale(self, to= music.duration, from_ = 0,
                           orient = HORIZONTAL , command = self.timechanged, showvalue = False)
         #when song ends this needs to change, use config?
@@ -106,7 +113,7 @@ class PlayWindow (Frame):
 if __name__ == "__main__":
     root = Tk() 
     root.title("MOMAR")
-    root.geometry("200x106")
+    root.geometry("200x109")
 
     app = PlayWindow(root)
     app.updateTime()
