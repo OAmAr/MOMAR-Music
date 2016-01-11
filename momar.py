@@ -6,6 +6,8 @@ except ImportError:
     # for Python3
     from tkinter import *
     
+import sys
+
 import tkinter.messagebox
 
 #Music Player Things
