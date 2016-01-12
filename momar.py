@@ -1,4 +1,4 @@
-import pyglet
+from pyglet import media
 try:
     # for Python2
     from Tkinter import *   ## notice capitalized T in Tkinter 
@@ -6,15 +6,42 @@ except ImportError:
     # for Python3
     from tkinter import *
     
-import sys
+from os import listdir
+from random import shuffle
 
 import tkinter.messagebox
 
-#Music Player Things
-music = pyglet.resource.media('testSong.mp3')
-player = pyglet.media.Player()
+class Playlist():
 
-player.queue(music)
+    def __init__(self):
+        #start as all songs, can be changed to playlist or shuffle
+        self.allsongs = listdir('music')
+        self.pos = 0
+        self.song = self.allsongs[self.pos]
+
+    def update(self):
+        if pos >= len(self.allsongs):
+            pos = 0
+        self.song = media.self.allsongs[pos]
+        player.queue(self.song)
+        
+    def next(self):
+        self.pos = self.pos + 1
+        self.update()
+            
+    def back(self):
+        if player.time < 10:
+            self.update()
+        else:
+            self.pos = self.pos - 1
+            self.update()
+
+#Music Player Things
+standPlay = Playlist()
+
+player = media.Player()
+
+player.queue(standPlay.song)
 
 def toggleState():
     if player.playing:
@@ -73,8 +100,7 @@ class PlayWindow (Frame):
         self.time.grid(row = 1, column = 2, sticky = SW)
         
     def back(self):
-
-        self.placeholder("gone back.")
+        standPlay.back()
         return
     
     def play(self):
@@ -82,7 +108,7 @@ class PlayWindow (Frame):
         return
     
     def skip(self):
-        self.placeholder("skipped.")
+        standPlay.next()
         return
 
     def volchanged(self, event):
@@ -99,15 +125,12 @@ class PlayWindow (Frame):
             player.seek(value)
         
     def updateTime(self):
-        self.time.set(player.time)
-        self.after(250,self.updateTime)
+        if standPlay.song.duration >= player.time:
+            standPlay.next()
+        else:
+            self.time.set(player.time)
+            self.after(250,self.updateTime)
     
-
-    def placeholder(self, text):
-        messagebox.showerror(title = "no code",
-                           message = "Oops! There's no code here! "
-                             + "This should have %s" %(text),
-                           parent = self)
 
 
 
