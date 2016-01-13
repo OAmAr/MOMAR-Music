@@ -1,4 +1,4 @@
-from pyglet import media
+from pyglet import media , resource
 try:
     # for Python2
     from Tkinter import *   ## notice capitalized T in Tkinter 
@@ -21,10 +21,11 @@ class Playlist():
         self.pos = 0
         self.songText = self.allsongs[self.pos]
         self.song = self.loadCurrentSong()
+        #self.song = resource.media('testSong.mp3')
 
     def loadCurrentSong(self):
         self.songText = self.allsongs[self.pos]
-        return media.load(self.directory + "/" + self.songText)
+        return resource.media("%s\%s" %(self.directory, self.songText)) 
         
     def update(self):
         if self.pos >= len(self.allsongs):
