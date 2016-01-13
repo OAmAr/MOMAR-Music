@@ -25,7 +25,7 @@ class Playlist():
 
     def loadCurrentSong(self):
         self.songText = self.allsongs[self.pos]
-        return resource.media("%s\%s" %(self.directory, self.songText)) 
+        return resource.media("%s/%s" %(self.directory, self.songText)) 
         
     def update(self):
         if self.pos >= len(self.allsongs):
@@ -136,7 +136,7 @@ class PlayWindow (Frame):
             player.seek(value)
         
     def updateTime(self):
-        print("Time:"+str(player.time)+" Duration:"+str(math.floor(standPlay.song.duration)))
+        #print("Time:"+str(player.time)+" Duration:"+str(math.floor(standPlay.song.duration)))
         if standPlay.song.duration-1 <= player.time:
             self.after(1, standPlay.next)
         self.time.set(player.time)
