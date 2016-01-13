@@ -15,9 +15,10 @@ class Playlist():
 
     def __init__(self):
         #start as all songs, can be changed to playlist or shuffle
-        self.allsongs = listdir('music')
+        self.directory = 'music'
+        self.allsongs = listdir(self.directory)
         self.pos = 0
-        self.song = self.allsongs[self.pos]
+        self.song = media.load(self.directory + "/" + self.allsongs[self.pos])
 
     def update(self):
         if pos >= len(self.allsongs):
@@ -93,7 +94,7 @@ class PlayWindow (Frame):
         self.vol.grid(row = 0, column = 1, rowspan = 3, sticky = NW)
 
         """Time seeker"""
-        self.time = Scale(self, to= music.duration, from_ = 0,
+        self.time = Scale(self, to= standPlay.song.duration, from_ = 0,
                           orient = HORIZONTAL , command = self.timechanged, showvalue = False)
         #when song ends this needs to change, use config?
 
@@ -125,7 +126,7 @@ class PlayWindow (Frame):
             player.seek(value)
         
     def updateTime(self):
-        if standPlay.song.duration >= player.time:
+        if standPlay.song.duration <= player.time:
             standPlay.next()
         else:
             self.time.set(player.time)
