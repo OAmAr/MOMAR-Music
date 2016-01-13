@@ -18,13 +18,19 @@ class Playlist():
         self.directory = 'music'
         self.allsongs = listdir(self.directory)
         self.pos = 0
-        self.song = media.load(self.directory + "/" + self.allsongs[self.pos])
+        self.songText = self.allsongs[self.pos]
+        self.song = self.loadCurrentSong()
 
+    def loadCurrentSong(self):
+        self.songText = self.allsongs[self.pos]
+        return media.load(self.directory + "/" + self.songText)
+        
     def update(self):
-        if pos >= len(self.allsongs):
-            pos = 0
-        self.song = media.self.allsongs[pos]
+        if self.pos >= len(self.allsongs):
+            self.pos = 0
+        self.song = self.loadCurrentSong()
         player.queue(self.song)
+        player.next_source()
         
     def next(self):
         self.pos = self.pos + 1
@@ -121,6 +127,7 @@ class PlayWindow (Frame):
         seconds = value%60
         timeAsText = "%2.2d:%2.2d" % (minutes, seconds)
         self.timeLabel.configure(text=timeAsText)
+        self.songLabel.configure(text=standPlay.songText + "\nArtist")
         
         if abs(value - player.time) > 1:
             player.seek(value)
