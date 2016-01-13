@@ -10,6 +10,7 @@ from os import listdir
 from random import shuffle
 
 import tkinter.messagebox
+import math
 
 class Playlist():
 
@@ -31,6 +32,7 @@ class Playlist():
         self.song = self.loadCurrentSong()
         player.queue(self.song)
         player.next_source()
+        app.time.configure(to=standPlay.song.duration)
         
     def next(self):
         self.pos = self.pos + 1
@@ -119,7 +121,7 @@ class PlayWindow (Frame):
         return
 
     def volchanged(self, event):
-        player.volume= float( self.vol.get())/100
+        player.volume= float(event)/100
 
     def timechanged(self, event):
         value = int(event)
@@ -133,11 +135,11 @@ class PlayWindow (Frame):
             player.seek(value)
         
     def updateTime(self):
-        if standPlay.song.duration <= player.time:
-            standPlay.next()
-        else:
-            self.time.set(player.time)
-            self.after(250,self.updateTime)
+        print("Time:"+str(player.time)+" Duration:"+str(math.floor(standPlay.song.duration)))
+        if standPlay.song.duration-1 <= player.time:
+            self.after(1, standPlay.next)
+        self.time.set(player.time)
+        self.after(250,self.updateTime)
     
 
 
