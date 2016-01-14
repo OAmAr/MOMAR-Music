@@ -105,8 +105,6 @@ class PlayWindow (Frame):
         """Time seeker"""
         self.time = Scale(self, to= standPlay.song.duration, from_ = 0,
                           orient = HORIZONTAL , command = self.timechanged, showvalue = False)
-        #when song ends this needs to change, use config?
-
         self.time.grid(row = 1, column = 2, sticky = SW)
         
     def back(self):
@@ -135,8 +133,9 @@ class PlayWindow (Frame):
         if abs(value - player.time) > 1:
             player.seek(value)
         
+        
     def updateTime(self):
-        #print("Time:"+str(player.time)+" Duration:"+str(math.floor(standPlay.song.duration)))
+        print("Time:"+str(player.time)+" Duration:"+str(math.floor(standPlay.song.duration)))
         if standPlay.song.duration-1 <= player.time:
             self.after(1, standPlay.next)
         self.time.set(player.time)
